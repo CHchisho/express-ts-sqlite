@@ -313,3 +313,5 @@ $RECYCLE.BIN/
 *.sqlite-shm
 *.sqlite-wal
 public/
+
+.idea/

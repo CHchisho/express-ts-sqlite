@@ -1,5 +1,5 @@
-import {NextFunction, Request, Response} from 'express';
-import {Article} from '../../types/LocalTypes';
+import { NextFunction, Request, Response } from 'express';
+import { Article } from '../../types/LocalTypes';
 import {
   createArticle,
   deleteArticle,
@@ -14,7 +14,7 @@ const articlesGet = (req: Request, res: Response<Article[]>) => {
   res.json(articles);
 };
 
-const articleGet = (req: Request<{id: string}>, res: Response<Article>) => {
+const articleGet = (req: Request<{ id: string }>, res: Response<Article>) => {
   try {
     const article = getArticle(Number(req.params.id));
     res.json(article);
@@ -37,7 +37,7 @@ const articlePost = (
 };
 
 const articlePut = (
-  req: Request<{id: string}, unknown, Article>,
+  req: Request<{ id: string }, unknown, Article>,
   res: Response<Article>,
   next: NextFunction,
 ) => {
@@ -46,6 +46,7 @@ const articlePut = (
       Number(req.params.id),
       req.body.title,
       req.body.description,
+      req.body.author_id,
     );
     res.json(article);
   } catch (error) {
@@ -54,16 +55,23 @@ const articlePut = (
 };
 
 const articleDelete = (
-  req: Request<{id: string}>,
+  req: Request<{ id: string }, unknown, { author_id: number }>,
   res: Response<unknown>,
   next: NextFunction,
 ) => {
   try {
-    deleteArticle(Number(req.params.id));
+    if (!req.body?.author_id) {
+      throw new CustomError('author_id is required', 400);
+    }
+    deleteArticle(Number(req.params.id), Number(req.body.author_id));
     res.status(204).end();
   } catch (error) {
-    next(new CustomError((error as Error).message, 500));
+    next(
+      error instanceof CustomError
+        ? error
+        : new CustomError((error as Error).message, 500),
+    );
   }
 };
 
-export {articlesGet, articleGet, articlePost, articlePut, articleDelete};
+export { articlesGet, articleGet, articlePost, articlePut, articleDelete };

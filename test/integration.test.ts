@@ -1,7 +1,7 @@
 import app from '../src/app';
 import request from 'supertest';
-// import {Article, Author} from '../src/types/LocalTypes';
-// import randomstring from 'randomstring';
+import { Article, Author } from '../src/types/LocalTypes';
+import randomstring from 'randomstring';
 
 // test that server is running
 describe('GET /api/v1', () => {
@@ -10,7 +10,6 @@ describe('GET /api/v1', () => {
   });
 });
 
-/* TODO: Remove this line to start the integration tests
 // Create new article for testing
 const article: Article = {
   id: 1, // some random id
@@ -192,7 +191,7 @@ describe('Delete test data', () => {
     try {
       await request(app)
         .delete(`/api/v1/articles/${article.id}`)
-        .send({author_id: article.author_id}) // Use article.author_id instead of author.id
+        .send({ author_id: article.author_id }) // Use article.author_id instead of author.id
         .expect(204);
     } catch (error) {
       console.error('Delete test failed:', error);
@@ -206,4 +205,3 @@ describe('Delete test data', () => {
   });
 });
 
-TODO: Remove this line to start the integration tests */

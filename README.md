@@ -60,6 +60,11 @@ This project is an example of an Express.js application using TypeScript and SQL
 
 2. The server will be running at `http://localhost:3000`.
 
+
+## Tests
+
+![img.png](img.png)
+
 ## Contributing
 
 Contributions are welcome! Please fork the repository and submit a pull request.

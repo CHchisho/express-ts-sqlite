@@ -1,6 +1,7 @@
-import express, {Request, Response} from 'express';
+import express, { Request, Response } from 'express';
 
 import articleRoute from './routes/articleRouter';
+import authorRoute from './routes/authorRouter';
 
 const router = express.Router();
 
@@ -10,6 +11,7 @@ router.get('/', (req: Request, res: Response) => {
   });
 });
 
+router.use('/authors', authorRoute);
 router.use('/articles', articleRoute);
 
 export default router;

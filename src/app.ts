@@ -5,7 +5,7 @@ import morgan from 'morgan';
 import helmet from 'helmet';
 import cors from 'cors';
 import api from './api';
-import {errorHandler, notFound} from './middlewares';
+import { errorHandler, notFound } from './middlewares';
 
 const app = express();
 
@@ -23,6 +23,10 @@ app.use(express.json());
 
 // serve public folder for apidoc
 app.use(express.static('public'));
+
+app.get('/', (req, res) => {
+  res.status(200).json({ message: 'ok' });
+});
 
 app.use('/api/v1', api);
 

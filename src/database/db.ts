@@ -1,8 +1,9 @@
 import Database from 'better-sqlite3';
-import {filename, tables} from './db-config';
+import { filename, tables } from './db-config';
 
 const db = new Database(filename);
 db.pragma('journal_mode = WAL');
+db.pragma('foreign_keys = ON');
 
 // init tables, use exec only for CREATE TABLE
 db.exec(tables);
